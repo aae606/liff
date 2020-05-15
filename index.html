@@ -42,7 +42,7 @@
     console.log("Hello World!")
   </script> -->
 
-  <!-- <script src="https://static.line-scdn.net/liff/edge/versions/2.1.13/sdk.js"></script> -->
+  <script src="https://static.line-scdn.net/liff/edge/versions/2.1.13/sdk.js"></script>
   <script>
     function createUniversalLink() {
     }
@@ -73,14 +73,33 @@
 
     async function getUserProfile() {
     }
-
+/*
+<p id="os"><b>OS อะไร:</b> </p>
+  <p id="language"><b>Language:</b> </p>
+  <p id="version"><b>Version:</b> </p>
+  <p id="isInClient"><b>isInClient:</b> </p>
+  <p id="accessToken"><b>AccessToken:</b> </p>
+*/
     function getEnvironment() {
+      document.getElementById("os").append(liff.getSO())
+      document.getElementById("language").append(liff.getLanguage())
+      document.getElementById("version").append(liff.getVersion())
+      document.getElementById("oaccessToken").append(liff.getAccessToken())
+      document.getElementById("isInClient").append(liff.getInClient())
+      // Check ว่าเราจะส่งข้อมูลกลับมายังห้องแชทได้ เฉพาะเปิดใน line เท่านั้น ไม่ได้เปิดใน External broowser
+      if (liff.isInClient()) {
+        document.getElementById("btnLogOut").style.display = "none"
+      } else {
+        document.getElementById("btnMsg").style.display = "none"
+        document.getElementById("btnScanCode").style.display = "none"
+        document.getElementById("btnClose").style.display = "none"
+      }
     }
 
     async function main() {
-      alert("LINE Developers x Skooldio")
-      await liff.init({ liffId: "YOUR-LIFF-ID" })
-      // getEnvironment()
+      // alert("LINE Developers x Skooldio")
+      await liff.init({ liffId: "1654187718-l0z2DKvr" })
+      getEnvironment()
       // getUserProfile()
       // getContext()
       // getFriendship()
