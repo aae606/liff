@@ -84,8 +84,8 @@
       document.getElementById("os").append(liff.getOS())
       document.getElementById("language").append(liff.getLanguage())
       document.getElementById("version").append(liff.getVersion())
-      document.getElementById("oaccessToken").append(liff.getAccessToken())
-      document.getElementById("isInClient").append(liff.getInClient())
+      document.getElementById("accessToken").append(liff.getAccessToken())
+      document.getElementById("isInClient").append(liff.isInClient())
       // Check ว่าเราจะส่งข้อมูลกลับมายังห้องแชทได้ เฉพาะเปิดใน line เท่านั้น ไม่ได้เปิดใน External broowser
       if (liff.isInClient()) {
         document.getElementById("btnLogOut").style.display = "none"
