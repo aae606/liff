@@ -61,11 +61,15 @@
     }
 
     function openWindow() {
+      liff.openWindow({
+        url: 'https://line.me',
+        external: true
+      })
     }
 
     async function getFriendship() {
       const friend = await getFriendship()
-      document.getElementById.append(friend.friendFlag)
+      document.getElementById("friendship").append(friend.friendFlag)
       if(!friend.friendFlag) {
         if(confirm("คุณยังไม่ได้เป็นเพื่อนกับ bot จะเพิ่มเพื่อนหรือไม่")) {
           window.location = "https://line.me/R/ti/p/%40883ztnkp"
