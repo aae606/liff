@@ -67,7 +67,8 @@
     }
 
     async function sendMsg() {
-      if(liff.getContext().type !== "none"){
+      alert("chk sent")
+      if( liff.getContext().type !== "none"){
         await liff.sendMessages([
           {
             "type": "sticker",
@@ -76,6 +77,7 @@
           }
         ])
         alert("Msg sent")
+       
       }
     }
 /*<p id="type"><b>type:</b> </p>
