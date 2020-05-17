@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
   <title>My LIFF app</title>
   <link rel="stylesheet" href="css/style.css" media="all">
+  <script src="https://static.line-scdn.net/liff/edge/2.1/liff.js"></script>
 </head>
+
 <body>
   <p id="os"><b>OS อะไร:</b> </p>
   <p id="language"><b>Language:</b> </p>
@@ -36,21 +39,20 @@
   <button id="btnLogOut" onclick="logOut()">Log Out</button>
   <button id="btnClose" onclick="closed()">Close</button>
 
-  <!-- <script src="js/vconsole.min.js"></script> -->
-  <!-- <script>
+  <script src="js/vconsole.min.js"></script>
+  <script>
     var vConsole = new VConsole()
     console.log("Hello World!")
-  </script> -->
-  <script src="https://static.line-scdn.net/liff/edge/2.1/liff.js"></script>
-    
-  <script>
-    function createUniversalLink() {
-    }
+  </script>
 
-    async function shareMsg() {
-    }
+  <script>
+    function createUniversalLink() {}
+
+    async function shareMsg() {}
 
     function logOut() {
+      liff.logout()
+      window.location.reload()
     }
 
     function closed() {
@@ -71,10 +73,10 @@
     }
 
     async function getFriendship() {
-      const friend = await lift.getFriendship()
+      const friend = await liff.getFriendship()
       document.getElementById("friendship").append(friend.friendFlag)
-      if(!friend.friendFlag) {
-        if(confirm("คุณยังไม่ได้เป็นเพื่อนกับ bot จะเพิ่มเพื่อนหรือไม่")) {
+      if (!friend.friendFlag) {
+        if (confirm("คุณยังไม่ได้เป็นเพื่อนกับ bot จะเพิ่มเพื่อนหรือไม่")) {
           window.location = "https://line.me/R/ti/p/%40883ztnkp"
         }
 
@@ -82,26 +84,17 @@
     }
 
     async function sendMsg() {
-      alert("chk sent")
-      if( liff.getContext().type !== "none"){
-        await liff.sendMessages([
-          {
-            "type": "sticker",
-            "stickerId": 1,
-            "packageID": 1
-          }
-        ])
-        alert("Msg sent")
-       
+
+      if (liff.getContext().type !== "none") {
+        await liff.sendMessages([{
+          "type": "sticker",
+          "packageID": "1",
+          "stickerID": "2571"
+        }])
+
       }
     }
-/*<p id="type"><b>type:</b> </p>
-  <p id="viewType"><b>viewType:</b> </p>
-  <p id="utouId"><b>utouId:</b> </p>
-  <p id="roomId"><b>roomId:</b> </p>
-  <p id="groupId"><b>groupId:</b> </p>
-  <p id="friendship"><b>isFriendship:</b> </p>
-  */
+
     function getContext() {
       document.getElementById("type").append(liff.getContext().type)
       document.getElementById("viewType").append(liff.getContext().viewType)
@@ -109,26 +102,15 @@
       document.getElementById("roomId").append(liff.getContext().roomId)
       document.getElementById("groupId").append(liff.getContext().groupId)
     }
-/*<img id="pictureUrl">
-  <p id="userId"><b>userId:</b> </p>
-  <p id="displayName"><b>displayName:</b> </p>
-  <p id="statusMessage"><b>statusMessage:</b> </p>
-  <p id="decodedIDToken"><b>email:</b> </p>*/
     async function getUserProfile() {
-       const profile = await liff.getProfile();
+      const profile = await liff.getProfile();
       document.getElementById("pictureUrl").src = profile.pictureUrl
       document.getElementById("userId").append(profile.userId)
       document.getElementById("displayName").append(profile.displayName)
       document.getElementById("statusMessage").append(profile.statusMessage)
       document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
     }
-/*
-<p id="os"><b>OS อะไร:</b> </p>
-  <p id="language"><b>Language:</b> </p>
-  <p id="version"><b>Version:</b> </p>
-  <p id="isInClient"><b>isInClient:</b> </p>
-  <p id="accessToken"><b>AccessToken:</b> </p>
-*/
+
     function getEnvironment() {
       document.getElementById("os").append(liff.getOS())
       document.getElementById("language").append(liff.getLanguage())
@@ -146,16 +128,24 @@
     }
 
     async function main() {
-      await liff.init({ liffId: "1654187718-l0z2DKvr" })
+      await liff.init({
+        liffId: "1654187718-l0z2DKvr"
+      })
       document.getElementById("isLoggedIn").append(liff.isLoggedIn())
-      
-      getEnvironment()
-      getUserProfile()
-      getContext()
-      getFriendship()
-      // createUniversalLink()
+      if (liff.isLoggedIn()) {
+        getEnvironment()
+        getUserProfile()
+        getContext()
+        getFriendship()
+      } else {
+        liff.login()
       }
+      // createUniversalLink()
+    }
     main()
   </script>
+
+
 </body>
+
 </html>
