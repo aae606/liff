@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
   <title>Path</title>
-  <link rel="stylesheet" href="css/style.css" media="all">
+  <link rel="stylesheet" href="../css/style.css" media="all">
 </head>
 
 <body>
@@ -32,20 +32,15 @@
       document.getElementById("displayName").append(profile.displayName)
       document.getElementById("statusMessage").append(profile.statusMessage)
       document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
-      localStorage.setItem("key", profile.userId)
+      // localStorage.setItem("key", profile.userId)
     }
-
     async function main() {
-      await liff.init({
-        liffId: "1654187718-l0z2DKvr"
-      })
-      document.getElementById("isLoggedIn").append(liff.isLoggedIn())
+      await liff.init({liffId: "1654187718-l0z2DKvr" })
+      // document.getElementById("isLoggedIn").append(liff.isLoggedIn())
       if (liff.isLoggedIn()) {
         getUserProfile()
       } else {
-        liff.login({
-          redirectUri: "https://aae606.github.io/liff/path"
-        })
+        liff.login({ redirectUri: "https://aae606.github.io/liff/path" })
       }
     }
     main()
